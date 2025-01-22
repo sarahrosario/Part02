@@ -44,7 +44,7 @@ public class Song implements Comparable<Song> {
              */
             @Override
             public int compare(Song s1, Song s2) {
-                return s1.getArtist().compareTo(s2.getArtist());
+                return s1.getArtist().compareToIgnoreCase(s2.getArtist());
                 
             }
         }
