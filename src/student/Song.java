@@ -30,7 +30,7 @@ public class Song implements Comparable<Song> {
         
         
         /**
-         * a nested Comparitor class that compares songs by artist.
+         * a nested Comparator class that compares songs by artist.
          * 
          * @author Junting Zhang
          */
@@ -44,6 +44,7 @@ public class Song implements Comparable<Song> {
              */
             @Override
             public int compare(Song s1, Song s2) {
+                cmpCnt++;
                 return s1.getArtist().compareToIgnoreCase(s2.getArtist());
                 
             }

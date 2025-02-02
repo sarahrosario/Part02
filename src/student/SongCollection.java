@@ -3,7 +3,7 @@
  ************************************************************************
  *                     Revision History (newest first)
  ************************************************************************
- * 
+ * 02/02/2025 -Junting Zhang - GUI set up and test
  * 8.2016 - Anne Applin - formatting and JavaDoc skeletons added   
  * 2015 -   Prof. Bob Boothe - Starting code and main for testing  
  ************************************************************************
@@ -37,6 +37,15 @@ public class SongCollection {
      *                 must be set in the Project Properties as an argument.
      */
     public SongCollection(String filename) {
+        
+        // use a try catch block
+        // read in the song file and build the songs array
+        // there are several ways to read in the lyrics correctly.
+        // the line feeds between lines and the blank lines between verses
+        // must be retained.
+
+        // sort the songs array using Arrays.sort (see the Java API)
+        // this will use the compareTo() in Song to do the job.
         try {
             // Array list that holds song objects while reading the file JP
             ArrayList<Song> songList = new ArrayList<>();
@@ -104,14 +113,6 @@ public class SongCollection {
             e.printStackTrace();
         }
 
-        // use a try catch block
-        // read in the song file and build the songs array
-        // there are several ways to read in the lyrics correctly.
-        // the line feeds between lines and the blank lines between verses
-        // must be retained.
-
-        // sort the songs array using Arrays.sort (see the Java API)
-        // this will use the compareTo() in Song to do the job.
     }
 
     /**
@@ -147,3 +148,4 @@ public class SongCollection {
         Stream.of(list).limit(10).forEach(System.out::println);
     }
 }
+ 
