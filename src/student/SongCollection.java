@@ -3,7 +3,9 @@
  ************************************************************************
  *                     Revision History (newest first)
  ************************************************************************
- * 02/02/2025 -Junting Zhang - GUI set up and test
+ * 2/3/2025 - Jonathan Peil - Removed the quotation marks around the outputted lyrics 
+ * 02/02/2025 - Junting - GUI set up and test
+ * 1/21/2025 - Jonathan Peil - Finished creating the SongCollection class
  * 8.2016 - Anne Applin - formatting and JavaDoc skeletons added   
  * 2015 -   Prof. Bob Boothe - Starting code and main for testing  
  ************************************************************************
@@ -37,15 +39,6 @@ public class SongCollection {
      *                 must be set in the Project Properties as an argument.
      */
     public SongCollection(String filename) {
-        
-        // use a try catch block
-        // read in the song file and build the songs array
-        // there are several ways to read in the lyrics correctly.
-        // the line feeds between lines and the blank lines between verses
-        // must be retained.
-
-        // sort the songs array using Arrays.sort (see the Java API)
-        // this will use the compareTo() in Song to do the job.
         try {
             // Array list that holds song objects while reading the file JP
             ArrayList<Song> songList = new ArrayList<>();
@@ -86,11 +79,11 @@ public class SongCollection {
                     title = title.replace("\"", "");
                     // Checks to see if the line starts with "LYRICS=" JP
                 } else if (line.startsWith("LYRICS=")) {
-                    // Starts reading the lyrics trimming out "LYRICS=" JP
-                    lyricsBuilder.append(line.substring(7).trim()).append("\n");
+                    // Starts reading the lyrics trimming out "LYRICS=" and removing the first quotation mark JP
+                    lyricsBuilder.append(line.substring(7).trim().replace("\"", "")).append("\n");
                 } else {
-                    // Appends the lyrics JP
-                    lyricsBuilder.append(line).append("\n");
+                    // Appends the lyrics and moves the last quotation mark JP
+                    lyricsBuilder.append(line.replace("\"", "")).append("\n");
                 }
 
             }
@@ -113,6 +106,14 @@ public class SongCollection {
             e.printStackTrace();
         }
 
+        // use a try catch block
+        // read in the song file and build the songs array
+        // there are several ways to read in the lyrics correctly.
+        // the line feeds between lines and the blank lines between verses
+        // must be retained.
+
+        // sort the songs array using Arrays.sort (see the Java API)
+        // this will use the compareTo() in Song to do the job.
     }
 
     /**
@@ -148,4 +149,3 @@ public class SongCollection {
         Stream.of(list).limit(10).forEach(System.out::println);
     }
 }
- 

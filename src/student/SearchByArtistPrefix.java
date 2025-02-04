@@ -3,7 +3,8 @@
  *****************************************************************************
  *                       Revision History
  *****************************************************************************
- * 02/02/2025 - Junting Zhang(Sarah) - Instrument Code , test GUI. count number of comparisons                                     comparisons to perform a search, unit test
+ * 02/02/2025 - Junting Zhang(Sarah) - Instrument Code , test GUI. 
+ *                  count number of comparisons, print statistics 
  * 01/30/2025 Mustafa Qahtan - Added search detail to the terminal and fixed some bugs.
  * 8/2015 Anne Applin - Added formatting and JavaDoc
  * 2015 - Bob Boothe - starting code
@@ -42,7 +43,7 @@ public class SearchByArtistPrefix {
      * walks back to find the first "beginsWith" match, then walks forward
      * adding to the arrayList until it finds the last match.
      *
-     * @param artistPrefix all or part of the artist's name, assumes no space following input string
+     * @param artistPrefix all or part of the artist's name, assumes no tailing space for input string
      * @return an array of songs by artists with sub-strings that match the prefix
      * @author Mustafa Qahtan, Junting Zhang
      */
@@ -71,34 +72,48 @@ public class SearchByArtistPrefix {
                 // Adjust the index position to where the song should be inserted.
                 index = -index - 1;
             }
-            System.out.println("Front found at " + index);
+            
             /* @Junting - additional comparison counter. 
             The first additional comparison starts from the first found index, 
             which has already been counted in the binarySearch comparison. Subtract one 
             to determine the actual number of additional comparisons needed.
             */
-            int additonalComparison = -1;
+            int additonalComparison = -1; // @Junting - keep track of additional comparison in while loops
+            int frontFoundIndex = index; // @Junting - initial first match index as insertion point if no match found.  
+            int endFound = index; // @Junting - keep track of the last match in sorted songs 
+            int count = 0; // @Junting - counter for number of match found
             // Looking for songs that match from the right side if we have a match.
             int rightIndex = index;
             // @junting - convert song in list to lowercase to compare with target string
-            while (rightIndex < songs.length && songs[rightIndex].getArtist().toLowerCase().startsWith(newArtistPrefix)) {
+            while (rightIndex < songs.length && songs[rightIndex].getArtist().toLowerCase().startsWith(newArtistPrefix)) {    
                 songResult.add(songs[rightIndex]);
+                endFound = rightIndex; 
+                count++;
                 additonalComparison++; 
-                rightIndex++;
+                rightIndex++; 
             }
-            additonalComparison++;   // @Junting - additonal comparison after right last match is found. 
+            
+            //@Junting - if there is match found, calculate the first found match location
+            if(count > 0){
+                frontFoundIndex = endFound-count + 1; 
+            }
+            
+            additonalComparison++;   // @Junting - extra comparison after right last match is found. 
 
             // Now we check on the left side as well.
             int leftIndex = index - 1; // reset the counter.
             // @junting - convert song in the allSongs to lowercase to compare with target string
             while (leftIndex >= 0 && songs[leftIndex].getArtist().toLowerCase().startsWith(newArtistPrefix)) {
                 songResult.add(0, songs[leftIndex]);
+                frontFoundIndex = leftIndex;  
                 additonalComparison++;   
                 leftIndex--;
             }
-            additonalComparison++;   // @Junting - additonal comparison after left last match is found. 
-
+            additonalComparison++;   // @Junting - extra comparison after left last match is found. 
+            
+            //int frontFoundIndex = songs.indexOf(songResult[0]);
             // print statistics
+            System.out.println("Front found at " + frontFoundIndex);
             System.out.println("Comparisons to build the list: " + additonalComparison);
             System.out.println("Actual complexity is: " + (binarySearchComparisons+ additonalComparison));
             System.out.println();

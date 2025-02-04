@@ -3,6 +3,7 @@
  * **********************************************************************
  *                     Revision History (newest first)
  ************************************************************************
+ * 02/02/2025 - Junting Zhang - create CmpArtist class
  *1.20.2025 - Dylan Sherwood  - Updated classes and methods
  * 8.2016 - Anne Applin - formatting and JavaDoc skeletons added   
  * 2015 -   Prof. Bob Boothe - Starting code and main for testing  
@@ -41,6 +42,7 @@ public class Song implements Comparable<Song> {
              * @param s1 Song object 1
              * @param s2 Song object 2
              * @return 0 s1=s2, negative for s1< s2, position for s1>s2
+             * @author Junting Zhang
              */
             @Override
             public int compare(Song s1, Song s2) {
